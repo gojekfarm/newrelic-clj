@@ -1,8 +1,9 @@
-(defproject yleisradio/new-reliquary "1.0.0"
+(defproject tech.gojek/clj-newrelic "0.0.1"
   :description "Clojure newrelic java api wrapper"
-  :url "https://github.com/Yleisradio/new-reliquary"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :url "https://github.com/gojektech/clj-newrelic"
+  :license {:name "Apache License, Version 2.0"
+            :url  "https://www.apache.org/licenses/LICENSE-2.0"}
+  :local-repo "vendor"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [com.newrelic.agent.java/newrelic-api "3.45.0"]]
   :profiles { :dev { :dependencies [[ring/ring-core "1.6.3"]

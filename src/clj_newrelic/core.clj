@@ -1,4 +1,4 @@
-(ns new-reliquary.core
+(ns clj-newrelic.core
   (:import [com.newrelic.api.agent NewRelic Trace]))
 
 (definterface NewRelicTracable

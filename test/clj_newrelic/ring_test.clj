@@ -1,6 +1,6 @@
-(ns new-reliquary.ring-test
+(ns clj-newrelic.ring-test
   (:require [clojure.test :refer :all]
-            [new-reliquary.ring :as ring]
+            [clj-newrelic.ring :as ring]
             [ring.mock.request :refer [request]]
             [ring.middleware.params :refer [wrap-params]]
             [clojure.tools.trace :refer [trace]]))
@@ -32,10 +32,10 @@
   (map #(.getContentType (second %)) @set-request-response-calls))
 
 (use-fixtures :each (fn [test]
-                      (with-redefs [new-reliquary.core/set-request-response (fn [req res] (swap! set-request-response-calls conj [req res]))
-                                    new-reliquary.core/set-transaction-name (fn [category name] (swap! set-transaction-name-calls conj [category name]))
-                                    new-reliquary.core/add-custom-parameter (fn [key val] (swap! add-custom-parameter-calls conj [key val]))
-                                    new-reliquary.core/ignore-transaction   (fn [] (swap! ignore-transaction-calls inc))]
+                      (with-redefs [clj-newrelic.core/set-request-response (fn [req res] (swap! set-request-response-calls conj [req res]))
+                                    clj-newrelic.core/set-transaction-name (fn [category name] (swap! set-transaction-name-calls conj [category name]))
+                                    clj-newrelic.core/add-custom-parameter (fn [key val] (swap! add-custom-parameter-calls conj [key val]))
+                                    clj-newrelic.core/ignore-transaction   (fn [] (swap! ignore-transaction-calls inc))]
                         (reset! set-request-response-calls [])
                         (reset! set-transaction-name-calls [])
                         (reset! add-custom-parameter-calls [])
