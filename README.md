@@ -1,24 +1,10 @@
-# New-reliquary
+# Clojure New Relic (clj-newrelic)
 
 Clojure wrapper for New Relic
 
-
-[![Build Status](https://travis-ci.org/Yleisradio/new-reliquary.svg)](https://travis-ci.org/Yleisradio/new-reliquary)
-[![Dependencies Status](http://jarkeeper.com/Yleisradio/new-reliquary/status.png)](http://jarkeeper.com/Yleisradio/new-reliquary)
-
-------------------------------------
-## Installation
-
-Add this to your Leiningen project.clj `:dependencies`:
-
-    [yleisradio/new-reliquary "1.0.0"]
-
-Jar is available in Clojars.
-
---------------------------------------
 ## New Relic Transactions
 
-Basic NewRelic transaction tracing utilities located in `new-reliquary.core`
+Basic NewRelic transaction tracing utilities located in `clj-newrelic.core`
 
 ### API
 
@@ -98,6 +84,21 @@ This can be achieved easily by using `ring.middleware.params/wrap-params`.
 ```
 
 
+
 ## License
 
-Distributed under the Eclipse Public License either version 1.0 or any later version.
+```
+Copyright 2017, GO-JEK Tech (http://gojek.tech)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
