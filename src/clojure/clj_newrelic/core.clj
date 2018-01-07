@@ -28,23 +28,23 @@
     (callback)))
 
 (deftype NewRelicTracer [] NewRelicTracable
-  (^{Trace {:dispatcher true}} trace [_ callback]
-    (callback))
-  (doTransaction [this callback]
-    (try
-      (.trace this callback)
-      (catch Throwable e
+         (^{Trace {:dispatcher true}} trace [_ callback]
+           (callback))
+         (doTransaction [this callback]
+           (try
+             (.trace this callback)
+             (catch Throwable e
         ; .trace() method already reports the error due to @Trace annotation => we don't want that
         ; NewRelic reports the error twice, thus ignore the outer ("global") transaction
         ; TODO: how to resolve nested transactions case?
-        (ignore-transaction)
-        (throw e)))))
+               (ignore-transaction)
+               (throw e)))))
 
 (defn with-newrelic-transaction
   ([category transaction-name custom-params callback]
    (.doTransaction (NewRelicTracer.) (wrap-with-named-transaction category transaction-name custom-params callback)))
   ([category transaction-name callback]
-    (with-newrelic-transaction category transaction-name {} callback))
+   (with-newrelic-transaction category transaction-name {} callback))
   ([callback]
-    (.doTransaction (NewRelicTracer.) callback)))
+   (.doTransaction (NewRelicTracer.) callback)))
 

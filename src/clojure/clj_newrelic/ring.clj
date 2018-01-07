@@ -66,21 +66,21 @@
        (second)))
 
 (deftype NewRelicRingWrapperRequest [req] Request
-  (getRequestURI [_] (resolve-uri req))
-  (getRemoteUser [_] nil)
-  (getParameterNames [_] (keys (resolve-query-params req)))
-  (getParameterValues [_ name]
-    (let [value (get (resolve-query-params req) name)]
-      (if (nil? value) nil (into-array [(str value)]))))
-  (getCookieValue [_ _] nil)
-  (getAttribute [_ _] nil)
-  (getHeader [_ name] (get (resolve-headers req) name))
-  (getHeaderType [_] HeaderType/HTTP))
+         (getRequestURI [_] (resolve-uri req))
+         (getRemoteUser [_] nil)
+         (getParameterNames [_] (keys (resolve-query-params req)))
+         (getParameterValues [_ name]
+           (let [value (get (resolve-query-params req) name)]
+             (if (nil? value) nil (into-array [(str value)]))))
+         (getCookieValue [_ _] nil)
+         (getAttribute [_ _] nil)
+         (getHeader [_ name] (get (resolve-headers req) name))
+         (getHeaderType [_] HeaderType/HTTP))
 
 (deftype NewRelicRingWrapperResponse [res] Response
-  (getContentType [_] (resolve-content-type res))
-  (getStatusMessage [this] (get status-code-mapping (.getStatus this)))
-  (getStatus [_] (get res :status 200)))
+         (getContentType [_] (resolve-content-type res))
+         (getStatusMessage [this] (get status-code-mapping (.getStatus this)))
+         (getStatus [_] (get res :status 200)))
 
 (defn- add-query-params [params]
   (doseq [[key value] (sort-by key (seq params))]

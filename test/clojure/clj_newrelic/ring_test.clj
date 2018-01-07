@@ -5,7 +5,6 @@
             [ring.middleware.params :refer [wrap-params]]
             [clojure.tools.trace :refer [trace]]))
 
-
 (defn build-app [status content-type]
   (-> (fn [req] {:body    req
                  :headers {"Content-Type" content-type}
