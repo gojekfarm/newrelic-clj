@@ -1,6 +1,6 @@
-(defproject tech.gojek/clj-newrelic "0.0.1"
-  :description "A Clojure wrapper for New Relic Java API"
-  :url "https://github.com/gojektech/clj-newrelic"
+(defproject tech.gojek/newrelic-clj "0.0.1"
+  :description "A thin wrapper around New Relic Agent Java API"
+  :url "https://github.com/gojektech/newrelic-clj"
   :license {:name "Apache License, Version 2.0"
             :url  "https://www.apache.org/licenses/LICENSE-2.0"}
   :repl-options {:host "0.0.0.0"

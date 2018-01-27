@@ -1,6 +1,6 @@
-(ns clj-newrelic.core-test
+(ns newrelic-clj.core-test
   (:require [clojure.test :refer :all]
-            [clj-newrelic.core :as core]
+            [newrelic-clj.core :as core]
             [ring.mock.request :refer [request]]
             [ring.middleware.params :refer [wrap-params]]
             [clojure.tools.trace :refer [trace]]))
@@ -11,8 +11,8 @@
 (defn empty-handler [])
 
 (use-fixtures :each (fn [test]
-                      (with-redefs [clj-newrelic.core/set-transaction-name (fn [category name] (swap! set-transaction-name-calls conj [category name]))
-                                    clj-newrelic.core/add-custom-parameter (fn [key val] (swap! add-custom-parameter-calls conj [key val]))]
+                      (with-redefs [newrelic-clj.core/set-transaction-name (fn [category name] (swap! set-transaction-name-calls conj [category name]))
+                                    newrelic-clj.core/add-custom-parameter (fn [key val] (swap! add-custom-parameter-calls conj [key val]))]
                         (reset! set-transaction-name-calls [])
                         (reset! add-custom-parameter-calls [])
                         (test))))

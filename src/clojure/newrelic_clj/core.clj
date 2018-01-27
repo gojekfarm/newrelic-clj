@@ -1,7 +1,7 @@
-(ns clj-newrelic.core
+(ns newrelic-clj.core
   (:import [com.newrelic.api.agent NewRelic Trace]))
 
-(definterface NewRelicTracable
+(definterface NewRelicTraceable
   (trace [callback])
   (doTransaction [callback]))
 
@@ -27,18 +27,22 @@
       (add-custom-parameter (str key) (str value)))
     (callback)))
 
-(deftype NewRelicTracer [] NewRelicTracable
-         (^{Trace {:dispatcher true}} trace [_ callback]
-           (callback))
-         (doTransaction [this callback]
-           (try
-             (.trace this callback)
-             (catch Throwable e
+(deftype NewRelicTracer
+  []
+  NewRelicTraceable
+  (^{Trace {:dispatcher true}} trace
+    [-this callback]
+    (callback))
+  (doTransaction
+    [this callback]
+    (try
+      (.trace this callback)
+      (catch Throwable e
         ; .trace() method already reports the error due to @Trace annotation => we don't want that
         ; NewRelic reports the error twice, thus ignore the outer ("global") transaction
         ; TODO: how to resolve nested transactions case?
-               (ignore-transaction)
-               (throw e)))))
+        (ignore-transaction)
+        (throw e)))))
 
 (defn with-newrelic-transaction
   ([category transaction-name custom-params callback]
