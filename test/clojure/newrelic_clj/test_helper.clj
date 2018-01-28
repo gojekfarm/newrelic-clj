@@ -5,12 +5,19 @@
   []
   (constantly nil))
 
-(defn- map->vec
-  [-map]
-  (let [->pair (fn [[map-key map-val]]
-                 [(name map-key)
-                  map-val])]
-    (map ->pair -map)))
+(defn- ->str
+  [value]
+  (if (keyword? value)
+    (name value)
+    (str value)))
+
+(defn- ->pair
+  [[map-key map-val]]
+  [(->str map-key) (->str map-val)])
+
+(defn- seriate-a-map
+  [a-map]
+  (map ->pair a-map))
 
 (defn make-test-tracer
   []
@@ -21,7 +28,7 @@
       (trace! [_ category transaction criterion]
         (reset! entry
                 [[category transaction]
-                 (map->vec criterion)])))))
+                 (seriate-a-map criterion)])))))
 
 (defmacro with-test-tracer
   [[tracer] & body]
