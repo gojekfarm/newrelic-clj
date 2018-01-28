@@ -1,6 +1,4 @@
-# New Relic Clojure 
-
-## `[tech.gojek/newrelic-clj]`
+# New Relic Clojure `[tech.gojek/newrelic-clj]`
 
 ![New Relic Clojure Logo](doc/logo.png)
 
