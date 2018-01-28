@@ -1,5 +1,7 @@
 # New Relic Clojure (newrelic-clj)
 
+![New Relic Clojure Logo](doc/logo.png)
+
 ## Description
 
 A thin wrapper around New Relic Agent Java API.
