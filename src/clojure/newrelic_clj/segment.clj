@@ -11,7 +11,10 @@
 
 (defmacro with-segment
   [segment-name body]
-  `(let [segment# (start-segment ~segment-name)]
-     (try
-       ~body
-       (finally (end-segment segment#)))))
+  (let [segment (gensym)]
+    (with-meta
+      `(let [~segment (start-segment ~segment-name)]
+         (try
+           ~body
+           (finally (end-segment ~segment))))
+      {:segment segment})))

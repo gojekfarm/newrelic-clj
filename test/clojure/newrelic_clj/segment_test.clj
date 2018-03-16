@@ -2,20 +2,12 @@
   (:require [clojure.test :refer :all]
             [newrelic-clj.segment :refer :all]))
 
-(deftest ^:unit executes-with-segment-when-body-doesnt-throw
-  (let [expected-segment-name "my-segment"]
-    (with-redefs [start-segment (fn [segment-name]
-                                (do (is (= segment-name expected-segment-name))
-                                    {:segment-name segment-name}))
-                  end-segment (fn [segment]
-                                (is (= (:segment-name segment) expected-segment-name)))]
-      (is (with-segment expected-segment-name true)))))
-
-(deftest ^:unit executes-with-segment-when-body-throws
-  (let [expected-segment-name "my-segment"]
-    (with-redefs [start-segment (fn [segment-name]
-                                (do (is (= segment-name expected-segment-name))
-                                    {:segment-name segment-name}))
-                  end-segment (fn [segment]
-                                (is (= (:segment-name segment) expected-segment-name)))]
-      (is (thrown? ArithmeticException (with-segment expected-segment-name (/ 1 0)))))))
+(deftest ^:unit expands-with-segment-with-given-args-and-body
+  (let [expansion (macroexpand-1 `(with-segment "sample-segment" true))
+        segment (:segment (meta expansion))
+        expected-expansion `(clojure.core/let [~segment (newrelic-clj.segment/start-segment "sample-segment")]
+                             (try true
+                                  (finally
+                                    (newrelic-clj.segment/end-segment ~segment))))
+        ]
+    (is (= expansion expected-expansion))))
